@@ -253,18 +253,3 @@ async def handle_mcp(request: Request, auth=Depends(verify_auth)):
             "error": {"code": -32603, "message": str(e)},
             "id": data.get("id") if isinstance(data, dict) else None,
         }
-
-
-@app.get("/health")
-def health():
-    return {"status": "ok", "db": DB_PATH, "auth": "enabled"}
-
-
-@app.get("/")
-def root():
-    return {"message": "MCP Server is running", "auth": "Bearer token enabled"}
-
-
-# Run
-if __name__ == "__main__":
-    uvicorn.run("mcp_server:app", host="127.0.0.1", port=8000, reload=True)
